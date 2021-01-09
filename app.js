@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const authRoutes = require("./routes/authRoutes");
 const cookieParser = require("cookie-parser");
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const dotenv = require("dotenv");
 
 const app = express();
