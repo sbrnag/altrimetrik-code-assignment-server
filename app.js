@@ -11,6 +11,10 @@ dotenv.config();
 app.use(express.json());
 app.use(cookieParser());
 
+app.get("/", (req, res) => {
+  res.send("altrimetrik-code-assignment-server login and registration node api");
+});
+
 // database connection
 const dbURI = process.env.CONNECTION_URL;
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex:true })
