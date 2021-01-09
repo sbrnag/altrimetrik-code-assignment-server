@@ -35,16 +35,16 @@ const handleErrors = (err) => {
 // create json web token
 const maxAge = 3 * 24 * 60 * 60;
 const createToken = (id) => {
-  return jwt.sign({ id }, 'net ninja secret', {
+  return jwt.sign({ id }, 'nag test secret', {
     expiresIn: maxAge
   });
 };
 
 module.exports.signup_post = async (req, res) => {
-  const { email, password } = req.body;
+  const { username, password, email, firstName, lastName, gendre, country } = req.body;
 
   try {
-    const user = await User.create({ email, password });
+    const user = await User.create({ username, password, email, firstName, lastName, gendre, country  });
     const token = createToken(user._id);
     res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
     res.status(201).json({ user: user._id });
@@ -57,13 +57,13 @@ module.exports.signup_post = async (req, res) => {
 }
 
 module.exports.login_post = async (req, res) => {
-  const { email, password } = req.body;
+  const { username, password } = req.body;
 
   try {
-    const user = await User.login(email, password);
+    const user = await User.login(username, password);
     const token = createToken(user._id);
     res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
-    res.status(200).json({ user: user._id });
+    res.status(200).json({ userId: user._id, username: user.username });
   } 
   catch (err) {
     const errors = handleErrors(err);
