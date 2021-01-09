@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const authRoutes = require("./routes/authRoutes");
 const cookieParser = require("cookie-parser");
+const bodyParser = require('body-parser');
 const dotenv = require("dotenv");
 
 const app = express();
@@ -10,6 +11,9 @@ dotenv.config();
 // middleware
 app.use(express.json());
 app.use(cookieParser());
+app.use(bodyParser.json({ limit: '30mb', extended: true }))
+app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }))
+app.use(cors());
 
 app.get("/", (req, res) => {
   res.send(
