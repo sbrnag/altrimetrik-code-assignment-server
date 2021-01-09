@@ -18,9 +18,13 @@ app.get("/", (req, res) => {
 // database connection
 const dbURI = process.env.CONNECTION_URL;
 const port = process.env.PORT || 3000;
-mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex:true })
-  .then((result) => app.listen(port))
-  .catch((err) => console.log(err));
+// mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex:true })
+//   .then((result) => app.listen(port))
+//   .catch((err) => console.log(err));
+
+app.listen(port,() => {
+  console.log(`Server running at port `+port);
+});
 
 // routes
 app.use(authRoutes);
